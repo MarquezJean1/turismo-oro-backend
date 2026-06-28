@@ -1,0 +1,6 @@
+@turismo_oro_HostAddress = http://localhost:5074
+
+GET {{turismo_oro_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

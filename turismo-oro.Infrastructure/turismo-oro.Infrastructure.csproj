@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>turismo_oro.Infrastructure</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\turismo-oro.Application\turismo-oro.Application.csproj" />
+    <ProjectReference Include="..\turismo-oro.Domain\turismo-oro.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

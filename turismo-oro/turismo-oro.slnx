@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../turismo-oro.Application/turismo-oro.Application.csproj" Id="c519a07d-11fb-42df-8ea6-c94555cf5450" />
+  <Project Path="../turismo-oro.Domain/turismo-oro.Domain.csproj" Id="8e92fef4-bdf3-4835-b6ba-7e85930a383c" />
+  <Project Path="../turismo-oro.Infrastructure/turismo-oro.Infrastructure.csproj" Id="8f1dbd83-b10b-4e6c-a274-63045f9a7f32" />
+  <Project Path="turismo-oro.Api.csproj" />
+</Solution>
