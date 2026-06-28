@@ -11,4 +11,10 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.12" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\turismo-oro.Application\turismo-oro.Application.csproj" />
+    <ProjectReference Include="..\turismo-oro.Domain\turismo-oro.Domain.csproj" />
+    <ProjectReference Include="..\turismo-oro.Infrastructure\turismo-oro.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
