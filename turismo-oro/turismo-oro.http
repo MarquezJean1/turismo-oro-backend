@@ -1,6 +1,28 @@
-@turismo_oro_HostAddress = http://localhost:5074
+@turismo-oro.Api_HostAddress = http://localhost:5074
 
-GET {{turismo_oro_HostAddress}}/weatherforecast/
+### Listar lugares turísticos
+GET {{turismo-oro.Api_HostAddress}}/api/turismo
 Accept: application/json
 
 ###
+
+GET {{turismo-oro.Api_HostAddress}}/api/turismo?busqueda=machala&categoria=Playa
+Accept: application/json
+
+###
+
+### Detalle de un lugar
+GET {{turismo-oro.Api_HostAddress}}/api/turismo/{{turismoId}}
+Accept: application/json
+
+###
+
+### Agregar comentario
+POST {{turismo-oro.Api_HostAddress}}/api/turismo/{{turismoId}}/comentarios
+Content-Type: application/json
+
+{
+  "autor": "Juan Pérez",
+  "calificacion": 5,
+  "texto": "Excelente lugar para visitar en familia."
+}
