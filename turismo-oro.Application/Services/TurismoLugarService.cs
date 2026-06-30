@@ -26,7 +26,7 @@ public class TurismoLugarService
         _fileStorageService = fileStorageService;
     }
 
-    public async Task<IReadOnlyList<TurismoLugarListDto>> ListarAsync(
+    public async Task<List<TurismoLugarListDto>> ListarAsync(
         string? busqueda,
         string? categoria,
         CancellationToken cancellationToken = default)
@@ -60,7 +60,7 @@ public class TurismoLugarService
             EtiquetaPrecio = string.IsNullOrWhiteSpace(dto.EtiquetaPrecio) ? "Gratis" : dto.EtiquetaPrecio.Trim(),
             Descripcion = dto.Descripcion.Trim(),
             Destacados = TurismoMapper.SerializarDestacados(dto.Destacados),
-            FechaCreacion = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow
         };
 
         var orden = 0;
@@ -107,7 +107,7 @@ public class TurismoLugarService
             Autor = dto.Autor.Trim(),
             Calificacion = dto.Calificacion,
             Texto = dto.Texto.Trim(),
-            FechaCreacion = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow
         };
 
         await _comentarioRepository.AddAsync(comentario, cancellationToken);
@@ -119,7 +119,7 @@ public class TurismoLugarService
             Autor = comentario.Autor,
             Calificacion = comentario.Calificacion,
             Texto = comentario.Texto,
-            FechaCreacion = comentario.FechaCreacion
+            FechaCreacion = comentario.CreatedAt
         };
     }
 }

@@ -15,13 +15,13 @@ public class FileStorageService : IFileStorageService
         ".jpg", ".jpeg", ".png", ".webp", ".gif"
     };
 
-    private readonly TurismoDbContext _context;
+    private readonly SqlDbContext _context;
     private readonly IWebHostEnvironment _environment;
     private readonly string _uploadFolder;
     private readonly long _maxBytes;
 
     public FileStorageService(
-        TurismoDbContext context,
+        SqlDbContext context,
         IWebHostEnvironment environment,
         IConfiguration configuration)
     {
@@ -69,7 +69,7 @@ public class FileStorageService : IFileStorageService
             Nombre = Path.GetFileNameWithoutExtension(nombreOriginal),
             Extension = extension.ToLowerInvariant(),
             TipoArchivo = TipoArchivo.Imagen,
-            FechaCreacion = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow
         };
 
         _context.Archivos.Add(archivo);

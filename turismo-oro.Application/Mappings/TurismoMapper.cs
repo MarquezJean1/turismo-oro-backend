@@ -30,14 +30,14 @@ public static class TurismoMapper
     public static TurismoLugarDto ToDto(TurismoLugar lugar)
     {
         var comentarios = lugar.Comentarios
-            .OrderByDescending(c => c.FechaCreacion)
+            .OrderByDescending(c => c.CreatedAt)
             .Select(c => new ComentarioDto
             {
                 Id = c.Id,
                 Autor = c.Autor,
                 Calificacion = c.Calificacion,
                 Texto = c.Texto,
-                FechaCreacion = c.FechaCreacion
+                FechaCreacion = c.CreatedAt
             })
             .ToList();
 
@@ -59,7 +59,7 @@ public static class TurismoMapper
             CalificacionPromedio = CalcularPromedio(lugar.Comentarios),
             TotalComentarios = lugar.Comentarios.Count,
             Comentarios = comentarios,
-            FechaCreacion = lugar.FechaCreacion
+            FechaCreacion = lugar.CreatedAt
         };
     }
 

@@ -3,9 +3,9 @@ using turismo_oro.Domain.Entities;
 
 namespace turismo_oro.Infrastructure.Data;
 
-public class TurismoDbContext : DbContext
+public class SqlDbContext : DbContext
 {
-    public TurismoDbContext(DbContextOptions<TurismoDbContext> options) : base(options)
+    public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options)
     {
     }
 
@@ -16,7 +16,10 @@ public class TurismoDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TurismoDbContext).Assembly);
+        modelBuilder.Entity<Archivo>()
+            .Property(a => a.TipoArchivo)
+            .HasConversion<string>();
+
         base.OnModelCreating(modelBuilder);
     }
 }

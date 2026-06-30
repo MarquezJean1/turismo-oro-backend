@@ -7,9 +7,9 @@ namespace turismo_oro.Infrastructure.Repositories;
 
 public class ArchivoRepository : IArchivoRepository
 {
-    private readonly TurismoDbContext _context;
+    private readonly SqlDbContext _context;
 
-    public ArchivoRepository(TurismoDbContext context)
+    public ArchivoRepository(SqlDbContext context)
     {
         _context = context;
     }

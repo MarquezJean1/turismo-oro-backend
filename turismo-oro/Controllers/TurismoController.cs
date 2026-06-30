@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using turismo_oro.Application.Dtos;
 using turismo_oro.Application.Services;
@@ -6,19 +7,13 @@ namespace turismo_oro.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TurismoController : ControllerBase
+public class TurismoController(TurismoLugarService turismoService) : ControllerBase
 {
-    private readonly TurismoLugarService _turismoService;
-
-    public TurismoController(TurismoLugarService turismoService)
-    {
-        _turismoService = turismoService;
-    }
+    private readonly TurismoLugarService _turismoService = turismoService;
 
     /// <summary>Lista lugares turísticos con búsqueda y filtro opcional por categoría.</summary>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyList<TurismoLugarListDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IReadOnlyList<TurismoLugarListDto>>> Listar(
+    public async Task<IActionResult> Listar(
         [FromQuery] string? busqueda,
         [FromQuery] string? categoria,
         CancellationToken cancellationToken)
@@ -60,12 +55,22 @@ public class TurismoController : ControllerBase
         if ((request.Imagenes?.Count ?? 0) > TurismoLugarService.MaxImagenesPorLugar)
             return BadRequest(new { mensaje = $"Máximo {TurismoLugarService.MaxImagenesPorLugar} imágenes por lugar." });
 
+        if (!TryParseCoordenada(request.Latitud, out var latitud) ||
+            !TryParseCoordenada(request.Longitud, out var longitud))
+            return BadRequest(new { mensaje = "Latitud y longitud deben ser números decimales válidos (use punto como separador)." });
+
+        if (latitud is < -90 or > 90)
+            return BadRequest(new { mensaje = "La latitud debe estar entre -90 y 90." });
+
+        if (longitud is < -180 or > 180)
+            return BadRequest(new { mensaje = "La longitud debe estar entre -180 y 180." });
+
         var dto = new TurismoLugarCreateDto
         {
             Nombre = request.Nombre,
             Categoria = request.Categoria,
-            Latitud = request.Latitud,
-            Longitud = request.Longitud,
+            Latitud = latitud,
+            Longitud = longitud,
             Direccion = request.Direccion,
             EtiquetaPrecio = request.EtiquetaPrecio,
             Descripcion = request.Descripcion,
@@ -115,14 +120,17 @@ public class TurismoController : ControllerBase
         string.IsNullOrWhiteSpace(destacados)
             ? []
             : destacados.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+    private static bool TryParseCoordenada(string? value, out decimal result) =>
+        decimal.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out result);
 }
 
 public class TurismoLugarCreateRequest
 {
     public string Nombre { get; set; } = string.Empty;
     public string Categoria { get; set; } = string.Empty;
-    public decimal Latitud { get; set; }
-    public decimal Longitud { get; set; }
+    public string Latitud { get; set; } = string.Empty;
+    public string Longitud { get; set; } = string.Empty;
     public string Direccion { get; set; } = string.Empty;
     public string EtiquetaPrecio { get; set; } = "Gratis";
     public string Descripcion { get; set; } = string.Empty;

@@ -1,6 +1,10 @@
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using turismo_oro.Infrastructure;
 using turismo_oro.Infrastructure.Data;
+
+CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +27,7 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<TurismoDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<SqlDbContext>();
     db.Database.Migrate();
 }
 
@@ -33,7 +37,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("Frontend");
-app.UseHttpsRedirection();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseStaticFiles();
 app.UseAuthorization();
 app.MapControllers();

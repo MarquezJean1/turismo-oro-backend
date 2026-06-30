@@ -1,13 +1,26 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace turismo_oro.Domain.Entities;
 
-public class ComentarioTurismo
+[Table(nameof(ComentarioTurismo), Schema = "TUR")]
+public class ComentarioTurismo : Audit
 {
     public Guid Id { get; set; }
-    public Guid TurismoLugarId { get; set; }
-    public string Autor { get; set; } = string.Empty;
-    public int Calificacion { get; set; }
-    public string Texto { get; set; } = string.Empty;
-    public DateTime FechaCreacion { get; set; }
 
+    public Guid TurismoLugarId { get; set; }
+
+    [Required]
+    [MaxLength(150)]
+    public string Autor { get; set; } = string.Empty;
+
+    [Required]
+    public int Calificacion { get; set; }
+
+    [Required]
+    [MaxLength(2000)]
+    public string Texto { get; set; } = string.Empty;
+
+    [ForeignKey(nameof(TurismoLugarId))]
     public TurismoLugar TurismoLugar { get; set; } = null!;
 }

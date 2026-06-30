@@ -7,14 +7,14 @@ namespace turismo_oro.Infrastructure.Repositories;
 
 public class TurismoLugarRepository : ITurismoLugarRepository
 {
-    private readonly TurismoDbContext _context;
+    private readonly SqlDbContext _context;
 
-    public TurismoLugarRepository(TurismoDbContext context)
+    public TurismoLugarRepository(SqlDbContext context)
     {
         _context = context;
     }
 
-    public async Task<IReadOnlyList<TurismoLugar>> GetAllAsync(
+    public async Task<List<TurismoLugar>> GetAllAsync(
         string? busqueda,
         string? categoria,
         CancellationToken cancellationToken = default)
@@ -43,8 +43,8 @@ public class TurismoLugarRepository : ITurismoLugarRepository
         }
 
         return await query
-            .OrderByDescending(t => t.FechaCreacion)
-            .ToListAsync(cancellationToken);
+            .OrderByDescending(t => t.CreatedAt)
+            .ToListAsync();
     }
 
     public async Task<TurismoLugar?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>

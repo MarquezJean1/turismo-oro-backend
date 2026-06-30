@@ -1,0 +1,7 @@
+APLCIAR MIGRACIONES
+
+dotnet ef migrations add audit `--project "c:\Proyectos Freelancer\Area-trabajo-turismo\api\turismo-oro-backend\turismo-oro.Infrastructure\turismo-oro.Infrastructure.csproj" `
+
+dotnet ef database update
+
+dotnet ef migrations remove  `--project "c:\Proyectos Freelancer\Area-trabajo-turismo\api\turismo-oro-backend\turismo-oro.Infrastructure\turismo-oro.Infrastructure.csproj" `

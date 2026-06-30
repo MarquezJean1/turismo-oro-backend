@@ -9,6 +9,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.12" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -16,5 +20,5 @@
     <ProjectReference Include="..\turismo-oro.Domain\turismo-oro.Domain.csproj" />
     <ProjectReference Include="..\turismo-oro.Infrastructure\turismo-oro.Infrastructure.csproj" />
   </ItemGroup>
-
+	
 </Project>

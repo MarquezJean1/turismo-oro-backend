@@ -6,9 +6,9 @@ namespace turismo_oro.Infrastructure.Repositories;
 
 public class ComentarioRepository : IComentarioRepository
 {
-    private readonly TurismoDbContext _context;
+    private readonly SqlDbContext _context;
 
-    public ComentarioRepository(TurismoDbContext context)
+    public ComentarioRepository(SqlDbContext context)
     {
         _context = context;
     }
