@@ -31,19 +31,19 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<SqlDbContext>();
     db.Database.Migrate();
 }
-
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI();
+/*if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+   
+}*/
 
 app.UseCors("Frontend");
 
-if (!app.Environment.IsDevelopment())
+/*if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
-}
+}*/
 app.UseStaticFiles();
 app.UseAuthorization();
 app.MapControllers();
